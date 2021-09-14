@@ -33,6 +33,6 @@ public class News implements Serializable {
     private String authorName;
     @ElementCollection(targetClass=String.class)
     private List<String> tags;
-    @OneToMany
+    @OneToMany(mappedBy = "news")
     private Set<Comment> comments;
 }
