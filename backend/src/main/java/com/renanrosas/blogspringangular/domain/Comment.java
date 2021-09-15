@@ -1,7 +1,6 @@
 package com.renanrosas.blogspringangular.domain;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,8 +8,11 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.Instant;
 
-@Builder
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "tb_comment")
 public class Comment implements Serializable {

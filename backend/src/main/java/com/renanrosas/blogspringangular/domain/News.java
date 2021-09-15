@@ -1,5 +1,6 @@
 package com.renanrosas.blogspringangular.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,11 +8,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
-@Builder
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "tb_news")
 public class News implements Serializable {
@@ -31,8 +35,12 @@ public class News implements Serializable {
     @NotBlank
     @Column
     private String authorName;
+    @JsonIgnore
+    @Setter(AccessLevel.NONE)
     @ElementCollection(targetClass=String.class)
-    private List<String> tags;
-    @OneToMany(mappedBy = "news")
+    private Set<String> tags;
+    @JsonIgnore
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter(AccessLevel.NONE)
     private Set<Comment> comments;
 }
