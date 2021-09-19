@@ -8,13 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "tb_news")
@@ -36,11 +32,10 @@ public class News implements Serializable {
     @Column
     private String authorName;
     @JsonIgnore
-    @Setter(AccessLevel.NONE)
     @ElementCollection(targetClass=String.class)
-    private Set<String> tags;
+    private List<String> tags;
     @JsonIgnore
-    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     @Setter(AccessLevel.NONE)
-    private Set<Comment> comments;
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 }

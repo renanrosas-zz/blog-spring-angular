@@ -30,16 +30,16 @@ public class NewsController {
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<Void> update(@RequestBody News obj){
-        service.update(obj);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<News> update(@PathVariable Long id, @RequestBody News obj){
+        service.update(id, obj);
+        return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody News obj){
+    public ResponseEntity<News> insert(@RequestBody News obj){
         service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(obj);
     }
 
     @DeleteMapping(value="/{id}")

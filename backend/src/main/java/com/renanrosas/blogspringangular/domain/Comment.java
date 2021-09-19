@@ -9,9 +9,6 @@ import java.io.Serializable;
 import java.time.Instant;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "tb_comment")
